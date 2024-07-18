@@ -1,0 +1,13 @@
+[Unit]
+Description=Nextcloud and mariadb containers
+Requires=network.target
+Requires=nfs-server.mount
+After=network.target
+After=nfs-server.mount
+
+[Install]
+WantedBy=default.target
+
+[Kube]
+Yaml=nextcloud-kube.yaml
+Network=homelab.network

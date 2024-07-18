@@ -1,0 +1,10 @@
+[Unit]
+Description=Homelab podman network
+After=network.target
+
+[Install]
+WantedBy=default.target
+
+[Network]
+Subnet=172.16.1.0/24
+Gateway=172.16.1.1

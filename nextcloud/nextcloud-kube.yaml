@@ -1,0 +1,106 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nextcloud
+  labels:
+    app: nextcloud
+spec:
+  selector:
+    matchLabels:
+      app: nextcloud-pod
+  template:
+    metadata:
+    spec:
+      containers:
+        # MariaDB
+        - name: mariadb
+          hostname: mariadb
+          image: docker.io/library/mariadb:11.2.4
+          env:
+            - name: MYSQL_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: homelab-secrets
+                  key: MYSQL_DATABASE
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: homelab-secrets
+                  key: MYSQL_USER
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: homelab-secrets
+                  key: MYSQL_PASSWORD
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: homelab-secrets
+                  key: MYSQL_ROOT_PASSWORD
+          restartPolicy: always
+          volumeMounts:
+            - mountPath: /var/lib/mysql
+              name: mariadb_data
+
+        # Nextcloud
+        - name: nextcloud
+          image: docker.io/library/nextcloud:28.0.2-apache
+          args:
+            - apache2-foreground
+          env:
+            - name: MYSQL_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: homelab-secrets
+                  key: MYSQL_DATABASE
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: homelab-secrets
+                  key: MYSQL_USER
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: homelab-secrets
+                  key: MYSQL_PASSWORD
+            - name: MYSQL_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: homelab-secrets
+                  key: MYSQL_HOST
+            - name: NEXTCLOUD_ADMIN_USER
+              valueFrom:
+                secretKeyRef:
+                  name: homelab-secrets
+                  key: NEXTCLOUD_ADMIN_USER
+            - name: NEXTCLOUD_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: homelab-secrets
+                  key: NEXTCLOUD_ADMIN_PASSWORD
+          ports:
+            - containerPort: 80
+              hostPort: 8080
+          restartPolicy: always
+          volumeMounts:
+            - mountPath: /var/www/html
+              name: nextcloud_data
+
+      volumes:
+        - name: nextcloud_data
+          hostPath:
+            path: /home/tom/projects/podman/nextcloud_data
+            type: Directory
+        - name: mariadb_data
+          persistentVolumeClaim:
+            name: mariadb-data
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mariadb-data
+spec:
+  storageClassName: manual
+  accessMode:
+    - ReadWriteOnce
