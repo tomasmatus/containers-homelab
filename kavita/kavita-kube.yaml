@@ -1,0 +1,48 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kavita
+  labels:
+    app: kavita
+spec:
+  selector:
+    matchLabels:
+      app: kavita-pod
+  template:
+    metadata:
+    spec:
+      containers:
+        - name: kavita
+          hostname: kavita
+          image: jvmilazz0/kavita:0.8.2
+          restartPolicy: unless-stopped
+          volumeMounts:
+            - mountPath: /kavita/config
+              name: kavita_data
+            - mountPath: /books
+              name: books
+            - mountPath: /manga
+              name: manga
+
+      volumes:
+        - name: kavita_data
+          persistentVolumeClaim:
+            name: kavita-data
+        - name: books
+          hostPath:
+            path: /mnt/media/books
+            type: Directory
+        - name: manga
+          hostPath:
+            path: /mnt/media/manga
+            type: Directory
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: kavita-data
+spec:
+  storageClassName: manual
+  accessMode:
+    - ReadWriteOnce

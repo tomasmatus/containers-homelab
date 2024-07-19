@@ -1,0 +1,13 @@
+[Unit]
+Description=Kavita container
+Requires=network.target
+Requires=var-mnt-media.mount
+After=network.target
+After=nfs-server.mount
+
+[Install]
+WantedBy=default.target
+
+[Kube]
+Yaml=kavita-kube.yaml
+Network=homelab.network
