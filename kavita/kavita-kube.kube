@@ -1,9 +1,9 @@
 [Unit]
 Description=Kavita container
-Requires=network.target
+Requires=homelab-network.service
 Requires=var-mnt-media.mount
-After=network.target
-After=nfs-server.mount
+After=homelab-network.service
+After=var-mnt-media.mount
 
 [Install]
 WantedBy=default.target

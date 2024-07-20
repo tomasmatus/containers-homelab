@@ -1,9 +1,9 @@
 [Unit]
 Description=Nextcloud and mariadb containers
-Requires=network.target
-Requires=nfs-server.mount
-After=network.target
-After=nfs-server.mount
+Requires=homelab-network.service
+Requires=var-mnt-media.mount
+After=homelab-network.service
+After=var-mnt-media.mount
 
 [Install]
 WantedBy=default.target
