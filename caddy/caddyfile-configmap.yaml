@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: caddyfile-config
+data:
+  Caddyfile: |
+    kavita.kanbaru.home {
+       encode gzip
+       reverse_proxy /* kavita-pod-kavita:5000 {
+           header_up X-Forwarded-Host {host}:5000
+           header_up -Origin
+           header_up -Referer
+       }
+    }

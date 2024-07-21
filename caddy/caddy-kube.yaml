@@ -1,0 +1,43 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: caddy
+  labels:
+    app: caddy
+spec:
+  selector:
+    matchLabels:
+      app: caddy-pod
+  template:
+    metadata:
+    spec:
+      containers:
+        - name: caddy
+          hostname: caddy
+          image: docker.io/library/caddy:2.8.4
+          restartPolicy: unless-stopped
+          volumeMounts:
+            - mountPath: /data
+              name: caddy_data
+            - mountPath: /etc/caddy/Caddyfile
+              name: caddyfile_config
+          ports:
+            - containerPort: 80
+              hostPort: 8080
+      volumes:
+        - name: caddy_data
+          persistentVolumeClaim:
+            name: caddy-data
+        - name: caddyfile_config
+          configMap:
+            name: caddyfile-config
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: caddy-data
+spec:
+  storageClassName: manual
+  accessMode:
+    - ReadWriteOnce

@@ -1,0 +1,14 @@
+[Unit]
+Description=Caddy v2 container
+Requires=homelab-network.service
+Requires=var-mnt-media.mount
+After=homelab-network.service
+After=var-mnt-media.mount
+
+[Install]
+WantedBy=default.target
+
+[Kube]
+Yaml=caddy-kube.yaml
+Network=homelab.network
+ConfigMap=caddyfile-configmap.yaml
