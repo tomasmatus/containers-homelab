@@ -5,10 +5,15 @@ metadata:
 data:
   Caddyfile: |
     http://kavita.kanbaru.home {
-       encode gzip
-       reverse_proxy /* kavita:5000 {
-           header_up X-Forwarded-Host {host}:5000
-           header_up -Origin
-           header_up -Referer
-       }
+      encode gzip
+      reverse_proxy /* kavita:5000 {
+        header_up X-Forwarded-Host {host}:5000
+        header_up -Origin
+        header_up -Referer
+      }
+    }
+
+    http://nextcloud.kanbaru.home {
+      reverse_proxy /* nextcloud:80 {
+      }
     }
