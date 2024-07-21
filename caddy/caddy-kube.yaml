@@ -20,7 +20,7 @@ spec:
           volumeMounts:
             - mountPath: /data
               name: caddy_data
-            - mountPath: /etc/caddy/Caddyfile
+            - mountPath: /etc/caddy
               name: caddyfile_config
           ports:
             - containerPort: 80
