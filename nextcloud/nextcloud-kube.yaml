@@ -38,7 +38,7 @@ spec:
                 secretKeyRef:
                   name: homelab-secrets
                   key: MYSQL_ROOT_PASSWORD
-          restartPolicy: always
+          restartPolicy: unless-stopped
           volumeMounts:
             - mountPath: /var/lib/mysql
               name: mariadb_data
@@ -79,19 +79,17 @@ spec:
                 secretKeyRef:
                   name: homelab-secrets
                   key: NEXTCLOUD_ADMIN_PASSWORD
-          ports:
-            - containerPort: 80
-              hostPort: 8080
-          restartPolicy: always
+          restartPolicy: unless-stopped
           volumeMounts:
             - mountPath: /var/www/html
               name: nextcloud_data
 
       volumes:
         - name: nextcloud_data
+          # Temporary hostPath, for testing purposes
           hostPath:
-            path: /home/tom/projects/podman/nextcloud_data
-            type: Directory
+            path: /home/admintom/podman/nextcloud_data
+            type: DirectoryOrCreate
         - name: mariadb_data
           persistentVolumeClaim:
             name: mariadb-data
@@ -104,3 +102,6 @@ spec:
   storageClassName: manual
   accessMode:
     - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
