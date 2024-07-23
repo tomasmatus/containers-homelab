@@ -28,7 +28,7 @@ spec:
       volumes:
         - name: kavita_data
           persistentVolumeClaim:
-            name: kavita-data
+            claimName: kavita-data
         - name: books
           hostPath:
             path: /mnt/media/books
@@ -46,3 +46,6 @@ spec:
   storageClassName: manual
   accessMode:
     - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi

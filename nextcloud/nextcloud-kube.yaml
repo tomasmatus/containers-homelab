@@ -92,7 +92,7 @@ spec:
             type: DirectoryOrCreate
         - name: mariadb_data
           persistentVolumeClaim:
-            name: mariadb-data
+            claimName: mariadb-data
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

@@ -28,7 +28,7 @@ spec:
       volumes:
         - name: caddy_data
           persistentVolumeClaim:
-            name: caddy-data
+            claimName: caddy-data
         - name: caddyfile_config
           configMap:
             name: caddyfile-config
@@ -41,3 +41,6 @@ spec:
   storageClassName: manual
   accessMode:
     - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
