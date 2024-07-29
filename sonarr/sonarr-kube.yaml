@@ -1,0 +1,45 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sonarr
+  labels:
+    app: sonarr
+spec:
+  selector:
+    matchLabels:
+      app: sonarr-pod
+  template:
+    metadata:
+    spec:
+      containers:
+        - name: sonarr
+          hostname: sonarr
+          image: ghcr.io/onedr0p/sonarr:4.0.8
+          restartPolicy: unless-stopped
+          volumeMounts:
+            - name: sonarr_data
+              mountPath: /config
+            - name: media
+              mountPath: /media
+
+      volumes:
+        - name: sonarr_data
+          persistentVolumeClaim:
+            claimName: sonarr-data
+        - name: media
+          hostPath:
+            path: /mnt/media
+            type: Directory
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: sonarr-data
+spec:
+  storageClassName: manual
+  accessMode:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
