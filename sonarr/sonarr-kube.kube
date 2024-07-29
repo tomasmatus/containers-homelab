@@ -1,0 +1,13 @@
+[Unit]
+Description=Sonarr container
+Requires=homelab-network.service
+Requires=var-mnt-media.mount
+After=homelab-network.service
+After=var-mnt-media.mount
+
+[Install]
+WantedBy=default.target
+
+[Kube]
+Yaml=sonarr-kube.yaml
+Network=homelab.network
