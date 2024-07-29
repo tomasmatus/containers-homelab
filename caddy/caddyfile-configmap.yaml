@@ -23,7 +23,7 @@ data:
 
     http://sonarr.kanbaru.home {
       reverse_proxy /* sonarr:80 {
-        header_up X-Forwarded-Host {host}:80
+        header_up X-Forwarded-Host {host}:8989
         header_up -Origin
         header_up -Referer
       }
