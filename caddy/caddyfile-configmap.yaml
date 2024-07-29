@@ -28,3 +28,27 @@ data:
         header_up -Referer
       }
     }
+
+    http://radarr.kanbaru.home {
+      reverse_proxy /* sonarr:7878 {
+        header_up X-Forwarded-Host {host}:7878
+        header_up -Origin
+        header_up -Referer
+      }
+    }
+
+    http://prowlarr.kanbaru.home {
+      reverse_proxy /* sonarr:9696 {
+        header_up X-Forwarded-Host {host}:9696
+        header_up -Origin
+        header_up -Referer
+      }
+    }
+
+    http://readarr.kanbaru.home {
+      reverse_proxy /* sonarr:8787 {
+        header_up X-Forwarded-Host {host}:8787
+        header_up -Origin
+        header_up -Referer
+      }
+    }

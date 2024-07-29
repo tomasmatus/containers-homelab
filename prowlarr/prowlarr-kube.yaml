@@ -1,0 +1,45 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prowlarr
+  labels:
+    app: prowlarr
+spec:
+  selector:
+    matchLabels:
+      app: prowlarr-pod
+  template:
+    metadata:
+    spec:
+      containers:
+        - name: prowlarr
+          hostname: prowlarr
+          image: ghcr.io/onedr0p/prowlarr:1.21.2
+          restartPolicy: unless-stopped
+          volumeMounts:
+            - name: prowlarr_data
+              mountPath: /config
+            - name: media
+              mountPath: /media
+
+      volumes:
+        - name: prowlarr_data
+          persistentVolumeClaim:
+            claimName: prowlarr-data
+        - name: media
+          hostPath:
+            path: /mnt/media
+            type: Directory
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: prowlarr-data
+spec:
+  storageClassName: manual
+  accessMode:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi

@@ -1,0 +1,45 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: readarr
+  labels:
+    app: readarr
+spec:
+  selector:
+    matchLabels:
+      app: readarr-pod
+  template:
+    metadata:
+    spec:
+      containers:
+        - name: readarr
+          hostname: readarr
+          image: ghcr.io/onedr0p/readarr:0.3.32
+          restartPolicy: unless-stopped
+          volumeMounts:
+            - name: readarr_data
+              mountPath: /config
+            - name: media
+              mountPath: /media
+
+      volumes:
+        - name: readarr_data
+          persistentVolumeClaim:
+            claimName: readarr-data
+        - name: media
+          hostPath:
+            path: /mnt/media
+            type: Directory
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: readarr-data
+spec:
+  storageClassName: manual
+  accessMode:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi

@@ -1,0 +1,45 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: radarr
+  labels:
+    app: radarr
+spec:
+  selector:
+    matchLabels:
+      app: radarr-pod
+  template:
+    metadata:
+    spec:
+      containers:
+        - name: radarr
+          hostname: radarr
+          image: ghcr.io/onedr0p/radarr:5.8.3
+          restartPolicy: unless-stopped
+          volumeMounts:
+            - name: radarr_data
+              mountPath: /config
+            - name: media
+              mountPath: /media
+
+      volumes:
+        - name: radarr_data
+          persistentVolumeClaim:
+            claimName: radarr-data
+        - name: media
+          hostPath:
+            path: /mnt/media
+            type: Directory
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: radarr-data
+spec:
+  storageClassName: manual
+  accessMode:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
