@@ -30,7 +30,7 @@ data:
     }
 
     http://radarr.kanbaru.home {
-      reverse_proxy /* sonarr:7878 {
+      reverse_proxy /* radarr:7878 {
         header_up X-Forwarded-Host {host}:7878
         header_up -Origin
         header_up -Referer
@@ -38,7 +38,7 @@ data:
     }
 
     http://prowlarr.kanbaru.home {
-      reverse_proxy /* sonarr:9696 {
+      reverse_proxy /* prowlarr:9696 {
         header_up X-Forwarded-Host {host}:9696
         header_up -Origin
         header_up -Referer
@@ -46,7 +46,7 @@ data:
     }
 
     http://readarr.kanbaru.home {
-      reverse_proxy /* sonarr:8787 {
+      reverse_proxy /* readarr:8787 {
         header_up X-Forwarded-Host {host}:8787
         header_up -Origin
         header_up -Referer
