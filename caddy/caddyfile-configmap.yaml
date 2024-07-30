@@ -52,3 +52,19 @@ data:
         header_up -Referer
       }
     }
+
+    http://qbittorrent.kanbaru.home {
+      reverse_proxy /* qbittorrent:8080 {
+        header_up X-Forwarded-Host {host}:8080
+        header_up -Origin
+        header_up -Referer
+      }
+    }
+
+    http://flood.kanbaru.home {
+      reverse_proxy /* flood:3000 {
+        header_up X-Forwarded-Host {host}:3000
+        header_up -Origin
+        header_up -Referer
+      }
+    }

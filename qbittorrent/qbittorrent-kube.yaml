@@ -1,0 +1,74 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: qbittorrent
+  labels:
+    app: qbittorrent
+spec:
+  selector:
+    matchLabels:
+      app: qbit-pod
+  template:
+    metadata:
+    spec:
+      containers:
+        - name: qbittorrent
+          hostname: qbittorrent
+          image: ghcr.io/onedr0p/qbittorrent:4.6.5
+          restartPolicy: unless-stopped
+          volumeMounts:
+            - name: qbittorrent_data
+              mountPath: /config
+            - name: media
+              mountPath: /media
+          env:
+            - name: QBT_WEBUI_PORT
+              value: 8080
+            - name: QBT_EULA
+              value: accept
+        - name: flood
+          hostname: flood
+          image: docker.io/jesec/flood:4.8.2
+          restartPolicy: unless-stopped
+          volumeMounts:
+            - name: flood_data
+              mountPath: /config
+            - name: media
+              mountPath: /media
+
+      volumes:
+        - name: qbittorrent_data
+          persistentVolumeClaim:
+            claimName: qbittorrent-data
+        - name: flood_data
+          persistentVolumeClaim:
+            claimName: flood-data
+        - name: media
+          hostPath:
+            path: /var/mnt/media
+            type: Directory
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: qbittorrent-data
+spec:
+  storageClassName: manual
+  accessMode:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: flood-data
+spec:
+  storageClassName: manual
+  accessMode:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
