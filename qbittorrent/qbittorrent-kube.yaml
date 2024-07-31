@@ -40,6 +40,9 @@ spec:
           env:
             - name: HOME
               value: /config
+          args:
+            - --allowedpath
+            - /media
 
       volumes:
         - name: qbittorrent_data
