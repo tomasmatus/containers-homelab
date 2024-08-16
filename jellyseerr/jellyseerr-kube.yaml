@@ -18,14 +18,14 @@ spec:
           image: docker.io/fallenbagel/jellyseerr:1.9.2
           restartPolicy: unless-stopped
           volumeMounts:
-            - name: jellyseer_data
+            - name: jellyseerr_data
               mountPath: /app/config
           env:
             - name: TZ
               value: Europe/Prague
 
       volumes:
-        - name: jelyseer_data
+        - name: jelyseerr_data
           persistentVolumeClaim:
             claimName: jellyseerr-data
 ---
