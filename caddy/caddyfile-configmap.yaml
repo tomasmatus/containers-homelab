@@ -68,3 +68,11 @@ data:
         header_up -Referer
       }
     }
+
+    http://jellyseerr.kanbaru.home {
+      reverse_proxy /* jellyseerr:5055 {
+        header_up X-Forwarded-Host {host}:5055
+        header_up -Origin
+        header_up -Referer
+      }
+    }
