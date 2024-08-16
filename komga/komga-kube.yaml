@@ -25,6 +25,8 @@ spec:
           env:
             - name: TZ
               value: Europe/Prague
+            - name: KOMGA_CONFIGDIR
+              value: /config
             - name: SERVER_PORT
               value: 8097
           ports:
