@@ -1,0 +1,57 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: komga
+  labels:
+    app: komga
+spec:
+  selector:
+    matchLabels:
+      app: komga-pod
+  template:
+    metadata:
+    spec:
+      containers:
+        - name: komga
+          hostname: komga
+          image: ghcr.io/gotson/komga:1.11.2
+          restartPolicy: unless-stopped
+          volumeMounts:
+            - mountPath: /config
+              name: komga_data
+            - mountPath: /manga
+              name: manga
+          env:
+            - name: TZ
+              value: Europe/Prague
+            - name: SERVER_PORT
+              value: 8097
+          ports:
+            - hostPort: 18097
+              containerPort: 8097
+
+      volumes:
+        - name: komga_data
+          persistentVolumeClaim:
+            claimName: komga-data
+        - name: manga
+          hostPath:
+            path: /mnt/media/manga
+            type: Directory
+
+      securityContext:
+        runAsUser: 0
+        runAsGroup: 0
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: komga-data
+spec:
+  storageClassName: manual
+  accessMode:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
