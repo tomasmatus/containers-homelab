@@ -22,6 +22,8 @@ spec:
               name: komga_data
             - mountPath: /manga
               name: manga
+            - mountPath: /tmp
+              name: komga-tmp
           env:
             - name: TZ
               value: Europe/Prague
@@ -41,6 +43,9 @@ spec:
           hostPath:
             path: /mnt/media/manga
             type: Directory
+        - name: komga-tmp
+          emptyDir:
+            sizeLimit: 500Mi
 
       securityContext:
         runAsUser: 0
