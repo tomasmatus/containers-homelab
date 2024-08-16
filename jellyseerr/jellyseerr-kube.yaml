@@ -25,7 +25,7 @@ spec:
               value: Europe/Prague
 
       volumes:
-        - name: jelyseerr_data
+        - name: jellyseerr_data
           persistentVolumeClaim:
             claimName: jellyseerr-data
 ---
