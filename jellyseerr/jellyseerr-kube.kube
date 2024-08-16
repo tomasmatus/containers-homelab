@@ -1,0 +1,11 @@
+[Unit]
+Description=Jellyseerr container
+Requires=homelab-network.service
+After=homelab-network.service
+
+[Install]
+WantedBy=default.target
+
+[Kube]
+Yaml=jellyseerr-kube.yaml
+Network=homelab.network

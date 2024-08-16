@@ -1,0 +1,42 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jellyseerr
+  labels:
+    app: jellyseerr
+spec:
+  selector:
+    matchLabels:
+      app: jellyseerr-pod
+  template:
+    metadata:
+    spec:
+      containers:
+        - name: jellyseerr
+          hostname: jellyseerr
+          image: docker.io/fallenbagel/jellyseerr:1.9.2
+          restartPolicy: unless-stopped
+          volumeMounts:
+            - name: jellyseer_data
+              mountPath: /app/config
+          env:
+            - name: TZ
+              value: Europe/Prague
+
+      volumes:
+        - name: jelyseer_data
+          persistentVolumeClaim:
+            claimName: jellyseerr-data
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jellyseerr-data
+spec:
+  storageClassName: manual
+  accessMode:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
