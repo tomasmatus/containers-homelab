@@ -1,0 +1,11 @@
+[Unit]
+Description=NGINX container
+Requires=homelab-network.service
+After=homelab-network.service
+
+[Install]
+WantedBy=default.target
+
+[Kube]
+Yaml=nginx-kube.yaml
+Network=homelab.network

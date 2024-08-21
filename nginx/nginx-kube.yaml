@@ -1,0 +1,36 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+  labels:
+    app: nginx
+spec:
+  selector:
+    matchLabels:
+      app: nginx-pod
+  template:
+    metadata:
+    spec:
+      containers:
+        - name: nginx
+          hostname: nginx
+          image: docker.io/nginx:1.27.1
+          restartPolicy: unless-stopped
+          env:
+            - name: NGINX_HOST
+              value: kanbaru.home
+            - name: NGINX_PORT
+              value: 80
+          volumeMounts:
+            - mountPath: /etc/nginx
+              name: nginx_data
+          ports:
+            - containerPort: 80
+              hostPort: 8080
+      volumes:
+        - name: nginx_data
+          # Temporary hostPath, for testing purposes
+          hostPath:
+            path: /home/admintom/containers-homelab/nginx/nginx_data
+            type: DirectoryOrCreate
