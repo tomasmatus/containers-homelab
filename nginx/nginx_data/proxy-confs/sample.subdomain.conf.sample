@@ -1,0 +1,16 @@
+server {
+  listen 80;
+
+  server_name sample.kanbaru.home;
+
+  client_max_body_size 0;
+
+  location / {
+    include /etc/nginx/proxy.conf;
+
+    set $protocol http;
+    set $app_name app_name;
+    set $port 80;
+    proxy_pass $protocol://$app_name:$port;
+  }
+}
