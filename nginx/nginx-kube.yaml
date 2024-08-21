@@ -17,11 +17,6 @@ spec:
           hostname: nginx
           image: docker.io/nginx:1.27.1
           restartPolicy: unless-stopped
-          env:
-            - name: NGINX_HOST
-              value: kanbaru.home
-            - name: NGINX_PORT
-              value: 80
           volumeMounts:
             - mountPath: /etc/nginx
               name: nginx_data
