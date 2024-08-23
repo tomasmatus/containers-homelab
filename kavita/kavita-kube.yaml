@@ -24,9 +24,6 @@ spec:
               name: books
             - mountPath: /manga
               name: manga
-          ports:
-            - hostPort: 5000
-              containerPort: 5000
 
       volumes:
         - name: kavita_data

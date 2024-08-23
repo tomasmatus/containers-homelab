@@ -31,9 +31,6 @@ spec:
               value: /config
             - name: SERVER_PORT
               value: 8097
-          ports:
-            - hostPort: 18097
-              containerPort: 8097
 
       volumes:
         - name: komga_data
