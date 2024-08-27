@@ -15,7 +15,7 @@ spec:
       containers:
         - name: komga
           hostname: komga
-          image: ghcr.io/gotson/komga:1.11.2
+          image: ghcr.io/gotson/komga:1.11.3
           restartPolicy: unless-stopped
           volumeMounts:
             - mountPath: /config
