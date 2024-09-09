@@ -13,6 +13,11 @@ for image in ${images}; do
   fi
 done
 
+if [[ ${#missing_images[@]} -eq 0 ]]; then
+  printf "Nothing to do.\n"
+  exit 0
+fi
+
 printf "Pulling %d images:\n" ${#missing_images[@]}
 printf "%s\n" "${missing_images[@]}"
 printf "\n"
