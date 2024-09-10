@@ -45,7 +45,7 @@ parse_cmd() {
 parse_cmd $*
 
 if [[ -n ${PULL} ]]; then
-  echo "pulling new images"
+  printf "Pulling new images...\n"
   if [[ -z ${DRY_RUN} ]]; then
     ./scripts/prefetch-images.sh
   fi
