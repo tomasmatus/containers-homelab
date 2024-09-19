@@ -1,0 +1,13 @@
+[Unit]
+Description=Pigallery container
+Requires=homelab-network.service
+Requires=var-mnt-media.mount
+After=homelab-network.service
+After=var-mnt-media.mount
+
+[Install]
+WantedBy=default.target
+
+[Kube]
+Yaml=pigallery-kube.yaml
+Network=homelab.network
