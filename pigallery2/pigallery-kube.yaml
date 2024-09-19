@@ -23,8 +23,9 @@ spec:
           volumeMounts:
             - mountPath: /app/data
               name: pigallery_data
-            - mountPath: /photos
+            - mountPath: /app/data/images
               name: photos
+              readOnly: true
 
       volumes:
         - name: pigallery_data
