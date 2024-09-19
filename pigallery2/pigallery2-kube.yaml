@@ -1,0 +1,48 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pigallery
+  labels:
+    app: pigallery
+spec:
+  selector:
+    matchLabels:
+      app: pigallery-pod
+  template:
+    metadata:
+    spec:
+      containers:
+        - name: pigallery
+          hostname: pigallery
+          image: docker.io/bpatrik/pigallery2:2.0.0
+          env:
+            - name: NODE_ENV
+              value: production
+          restartPolicy: unless-stopped
+          volumeMounts:
+            - mountPath: /app/data
+              name: pigallery_data
+            - mountPath: /photos
+              name: photos
+
+      volumes:
+        - name: pigallery_data
+          persistentVolumeClaim:
+            claimName: pigallery-data
+        - name: photos
+          hostPath:
+            path: /mnt/media/photos
+            type: Directory
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pigallery2-data
+spec:
+  storageClassName: manual
+  accessMode:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
