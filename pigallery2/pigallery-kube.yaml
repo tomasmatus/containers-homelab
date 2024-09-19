@@ -21,16 +21,26 @@ spec:
               value: production
           restartPolicy: unless-stopped
           volumeMounts:
-            - mountPath: /app/data
-              name: pigallery_data
+            - mountPath: /app/data/config
+              name: pigallery_config
+            - mountPath: /app/data/db
+              name: pigallery_db
+            - mountPath: /app/data/tmp
+              name: pigallery_tmp
             - mountPath: /app/data/images
               name: photos
               readOnly: true
 
       volumes:
-        - name: pigallery_data
+        - name: pigallery_config
           persistentVolumeClaim:
-            claimName: pigallery-data
+            claimName: pigallery-config
+        - name: pigallery_db
+          persistentVolumeClaim:
+            claimName: pigallery-db
+        - name: pigallery_tmp
+          emptyDir:
+            sizeLimit: 500Mi
         - name: photos
           hostPath:
             path: /mnt/media/photos
@@ -39,7 +49,19 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pigallery2-data
+  name: pigallery2-config
+spec:
+  storageClassName: manual
+  accessMode:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pigallery2-db
 spec:
   storageClassName: manual
   accessMode:
