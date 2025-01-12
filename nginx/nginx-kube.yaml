@@ -15,7 +15,7 @@ spec:
       containers:
         - name: nginx
           hostname: nginx
-          image: docker.io/nginx:1.27.1
+          image: docker.io/nginx:1.27.3
           restartPolicy: unless-stopped
           volumeMounts:
             - mountPath: /etc/nginx

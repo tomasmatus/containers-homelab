@@ -15,7 +15,7 @@ spec:
       containers:
         - name: jellyseerr
           hostname: jellyseerr
-          image: docker.io/fallenbagel/jellyseerr:1.9.2
+          image: docker.io/fallenbagel/jellyseerr:2.2.3
           restartPolicy: unless-stopped
           volumeMounts:
             - name: jellyseerr_data
