@@ -15,7 +15,7 @@ spec:
       containers:
         - name: readarr
           hostname: readarr
-          image: ghcr.io/onedr0p/readarr-develop:0.3.32
+          image: ghcr.io/onedr0p/readarr-develop:0.4.12
           restartPolicy: unless-stopped
           volumeMounts:
             - name: readarr_data
