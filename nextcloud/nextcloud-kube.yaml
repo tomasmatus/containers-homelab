@@ -19,10 +19,7 @@ spec:
           image: docker.io/library/mariadb:11.2.4
           env:
             - name: MYSQL_DATABASE
-              valueFrom:
-                secretKeyRef:
-                  name: homelab-secrets
-                  key: MYSQL_DATABASE
+              value: nextcloud
             - name: MYSQL_USER
               valueFrom:
                 secretKeyRef:
@@ -43,17 +40,34 @@ spec:
             - mountPath: /var/lib/mysql
               name: mariadb_data
 
+        - name: valkey
+          hostname: valkey
+          image: docker.io/valkey/valkey:8.0.2-alpine
+          args:
+            - valkey-server
+            - --save
+            - 60
+            - 1
+            - --loglevel
+            - warning
+          volumeMounts:
+            - mountPath: /data
+              name: valkey_data
+
         # Nextcloud
         - name: nextcloud
           image: docker.io/library/nextcloud:28.0.2-apache
           args:
             - apache2-foreground
+          ports:
+            - containerPort: 80
+              hostPort: 8080
           env:
+            - name: NEXTCLOUD_TRUSTED_DOMAINS
+              value: 10.89.0.0/24
+            # Mariadb env
             - name: MYSQL_DATABASE
-              valueFrom:
-                secretKeyRef:
-                  name: homelab-secrets
-                  key: MYSQL_DATABASE
+              value: nextcloud
             - name: MYSQL_USER
               valueFrom:
                 secretKeyRef:
@@ -79,20 +93,34 @@ spec:
                 secretKeyRef:
                   name: homelab-secrets
                   key: NEXTCLOUD_ADMIN_PASSWORD
+            # Valkey env
+            - name: REDIS_HOST
+              value: valkey
+            - name: REDIS_PORT
+              value: 6379
           restartPolicy: unless-stopped
           volumeMounts:
             - mountPath: /var/www/html
+              name: nextcloud_appdata
+            - mountPath: /var/www/html/data
               name: nextcloud_data
 
       volumes:
+        - name: nextcloud_appdata
+          # nextcloud persistent data
+          persistentVolumeClaim:
+            claimName: nextcloud-appdata
         - name: nextcloud_data
-          # Temporary hostPath, for testing purposes
+          # actual files stored by users
           hostPath:
-            path: /home/admintom/podman/nextcloud_data
+            path: /home/tom/projects/nextcloud_data
             type: DirectoryOrCreate
         - name: mariadb_data
           persistentVolumeClaim:
             claimName: mariadb-data
+        - name: valkey_data
+          persistentVolumeClaim:
+            claimName: valkey-data
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -105,3 +133,24 @@ spec:
   resources:
     requests:
       storage: 2Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: valkey-data
+spec:
+  storageClassName: manual
+  accessMode:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nextcloud-appdata
+spec:
+  storageClassName: manual
+  accessMode:
+    - ReadWriteOnce
