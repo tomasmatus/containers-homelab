@@ -2,6 +2,7 @@
 Description=Nextcloud and mariadb containers
 Requires=homelab-network.service
 Requires=var-mnt-media.mount
+Requires=nextcloud-cron.timer
 After=homelab-network.service
 After=var-mnt-media.mount
 
@@ -11,3 +12,4 @@ WantedBy=default.target
 [Kube]
 Yaml=nextcloud-kube.yaml
 Network=homelab.network
+ConfigMap=valkey-configmap.yaml
