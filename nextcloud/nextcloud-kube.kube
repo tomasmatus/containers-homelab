@@ -11,3 +11,4 @@ WantedBy=default.target
 [Kube]
 Yaml=nextcloud-kube.yaml
 Network=homelab.network
+ConfigMap=valkey-configmap.yaml
