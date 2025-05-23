@@ -15,7 +15,7 @@ spec:
       containers:
         - name: qbittorrent
           hostname: qbittorrent
-          image: ghcr.io/onedr0p/qbittorrent:5.0.3
+          image: ghcr.io/onedr0p/qbittorrent:5.1.0
           restartPolicy: unless-stopped
           volumeMounts:
             - name: qbittorrent_data
@@ -30,7 +30,7 @@ spec:
 
         - name: flood
           hostname: flood
-          image: docker.io/jesec/flood:4.8.4
+          image: docker.io/jesec/flood:4.9.3
           restartPolicy: unless-stopped
           volumeMounts:
             - name: flood_data
