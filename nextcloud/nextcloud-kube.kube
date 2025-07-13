@@ -1,5 +1,5 @@
 [Unit]
-Description=Nextcloud and mariadb containers
+Description=Nextcloud, mariadb, valkey and collabora containers
 Requires=homelab-network.service
 Requires=var-mnt-media.mount
 Requires=nextcloud-cron.timer

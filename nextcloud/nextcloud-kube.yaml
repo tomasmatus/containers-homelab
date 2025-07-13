@@ -104,6 +104,22 @@ spec:
             - mountPath: /var/www/html/data
               name: nextcloud_data
 
+        # Collabora CODE
+        - name: collabora
+          hostname: collabora
+          image: docker.io/collabora/code:25.04.3.1.1
+          env:
+            - name: username
+              value: admintom
+            - name: password
+              valueFrom:
+                secretKeyRef:
+                  name: homelab-secrets
+                  key: COLLABORA_ADMIN_PASSWORD
+            - name: dictionaries
+              value: de_DE en_GB en_US es_ES fr_FR it nl pt_BR pt_PT cs_CZ cs
+          restartPolicy: unless-stopped
+
       volumes:
         - name: nextcloud_appdata
           # nextcloud persistent data
