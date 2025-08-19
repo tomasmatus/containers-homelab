@@ -15,7 +15,7 @@ spec:
       containers:
         - name: prowlarr
           hostname: prowlarr
-          image: ghcr.io/home-operations/prowlarr:1.35.1
+          image: ghcr.io/home-operations/prowlarr:2.0.3
           restartPolicy: unless-stopped
           volumeMounts:
             - name: prowlarr_data
