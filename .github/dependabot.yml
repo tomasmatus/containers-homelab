@@ -1,0 +1,14 @@
+version: 2
+updates:
+  - package-ecosystem: "docker"
+    directories:
+      - "/prowlarr"
+      - "/radarr"
+      - "/sonarr"
+    schedule:
+      interval: "weekly"
+      day: "tuesday"
+      timezone: "Europe/Prague"
+    open-pull-requests-limit: 5
+    labels:
+      - "container-update"
