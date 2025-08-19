@@ -6,8 +6,8 @@ updates:
       - "/radarr"
       - "/sonarr"
     schedule:
-      interval: "weekly"
-      day: "tuesday"
+      interval: "daily"
+      time: "05:00"
       timezone: "Europe/Prague"
     open-pull-requests-limit: 5
     labels:
