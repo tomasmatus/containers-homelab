@@ -2,11 +2,15 @@ version: 2
 updates:
   - package-ecosystem: "docker"
     directories:
+      - "/kavita"
+      - "/komga"
+      - "/pigallery"
       - "/prowlarr"
       - "/radarr"
       - "/sonarr"
     schedule:
-      interval: "daily"
+      interval: "weekly"
+      day: "wednesday"
       time: "05:00"
       timezone: "Europe/Prague"
     open-pull-requests-limit: 5
