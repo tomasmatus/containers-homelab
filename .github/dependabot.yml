@@ -4,7 +4,8 @@ updates:
     directories:
       - "/kavita"
       - "/komga"
-      - "/pigallery"
+      - "/nginx"
+      - "/pigallery2"
       - "/prowlarr"
       - "/radarr"
       - "/sonarr"
