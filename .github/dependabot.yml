@@ -10,7 +10,7 @@ updates:
       - "/radarr"
       - "/sonarr"
     ignore:
-      - dependency-name: mariadb
+      - dependency-name: library/mariadb
     schedule:
       interval: "weekly"
       day: "wednesday"
