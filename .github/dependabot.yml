@@ -4,7 +4,7 @@ updates:
     directories:
       - "/kavita"
       - "/komga"
-      - "/nginx"
+      - "/nextcloud"
       - "/pigallery2"
       - "/prowlarr"
       - "/radarr"
