@@ -1,0 +1,13 @@
+[Unit]
+Description=Grafana monitoring stack
+Requires=homelab-network.service
+After=homelab-network.service
+
+[Install]
+WantedBy=default.target
+
+[Kube]
+Yaml=grafana-kube.yaml
+Network=homelab.network
+ConfigMap=alloy-configmap.yaml
+ConfigMap=loki-configmap.yaml
