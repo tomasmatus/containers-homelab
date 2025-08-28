@@ -9,6 +9,8 @@ updates:
       - "/prowlarr"
       - "/radarr"
       - "/sonarr"
+    ignore:
+      - dependency-name: mariadb
     schedule:
       interval: "weekly"
       day: "wednesday"
