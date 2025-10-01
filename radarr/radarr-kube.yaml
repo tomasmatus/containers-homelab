@@ -15,7 +15,7 @@ spec:
       containers:
         - name: radarr
           hostname: radarr
-          image: ghcr.io/home-operations/radarr:6.0.0
+          image: ghcr.io/home-operations/radarr:6.0.1
           restartPolicy: unless-stopped
           volumeMounts:
             - name: radarr_data
