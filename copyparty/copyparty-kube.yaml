@@ -1,0 +1,61 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: copyparty
+  labels:
+    app: copyparty
+spec:
+  selector:
+    matchLabels:
+      app: copyparty-pod
+  template:
+    metadata:
+    spec:
+      containers:
+        - name: copyparty
+          hostname: copyparty
+          image: docker.io/copyparty/ac:1.19.15
+          args: [
+            "-c", "/etc/copyparty/copypart.conf"
+          ]
+          restartPolicy: unless-stopped
+          volumeMounts:
+            - name: copyparty_appdata
+              mountPath: /cfg
+
+            - name: copyparty_configmap
+              mountPath: /etc/copyparty
+
+            - name: mnt_media
+              mountPath: /mnt/media
+
+          env:
+            - name: TZ
+              value: Europe/Prague
+          ports:
+            - containerPort: 3923
+              hostPort: 63923
+
+      volumes:
+        - name: copyparty_appdata
+          persistentVolumeClaim:
+            claimName: copyparty-appdata
+
+        - name: copyparty_configmap
+          configMap:
+            name: copyparty-configmap
+
+        - name: mnt_media
+          hostPath:
+            path: /mnt/truenas/media
+            type: Directory
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: copyparty-appdata
+spec:
+  storageClassName: manual
+  accessMode:
+    - ReadWriteOnce
