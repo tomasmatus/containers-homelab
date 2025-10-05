@@ -8,7 +8,9 @@ data:
       e2dsa  # enable file indexing and filesystem scanning
       e2ts   # and enable multimedia indexing
       ansi   # and colors in log messages
-      ah-alg: argon2
+      ah-alg: argon2  # hash algorithm for account password
+      re-maxage: 3600  # scan for new filew every hour
+      hist: /cfg/cache
 
       # uncomment the line starting with q, lo: to log to a file instead of stdout/journalctl;
       # $LOGS_DIRECTORY is usually /var/log/copyparty (comes from systemd)
@@ -37,6 +39,6 @@ data:
       /mnt/media           # share the contents of the "/mnt/media" folder
       accs:
         r: *      # everyone gets read access
-        rwmda: tom  # the user "tom" gets read-write-move-delete-admin
+        rwmda.: tom  # the user "tom" gets read-write-move-delete-admin-dots
         # uid: 1000  # If you're running as root, you can change the owner of this volume here
         # gid: 1000  # If you're running as root, you can change the group of this volume here
