@@ -15,7 +15,7 @@ spec:
       containers:
         - name: kavita
           hostname: kavita
-          image: jvmilazz0/kavita:0.8.7
+          image: jvmilazz0/kavita:0.8.8
           restartPolicy: unless-stopped
           volumeMounts:
             - mountPath: /kavita/config
