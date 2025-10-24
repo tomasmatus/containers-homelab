@@ -1,0 +1,49 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lidarr
+  labels:
+    app: lidarr
+spec:
+  selector:
+    matchLabels:
+      app: lidarr-pod
+  template:
+    metadata:
+    spec:
+      containers:
+        - name: lidarr
+          hostname: lidarr
+          image: ghcr.io/home-operations/lidarr:3.0.0
+          restartPolicy: unless-stopped
+          volumeMounts:
+            - name: lidarr_data
+              mountPath: /config
+            - name: media
+              mountPath: /media
+
+      volumes:
+        - name: lidarr_data
+          persistentVolumeClaim:
+            claimName: lidarr-data
+        - name: media
+          hostPath:
+            path: /mnt/media
+            type: Directory
+
+      securityContext:
+        runAsUser: 0
+        runAsGroup: 0
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: lidarr-data
+spec:
+  storageClassName: manual
+  accessMode:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
