@@ -1,0 +1,33 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: renovate
+  labels:
+    app: renovate
+spec:
+  selector:
+    matchLabels:
+      app: renovate-pod
+  template:
+    metadata:
+    spec:
+      containers:
+        - name: renovate
+          hostname: renovate
+          image: ghcr.io/renovatebot/renovate:42.11.0
+          volumeMounts:
+            - mountPath: /usr/src/app
+              name: renovate_conf
+          env:
+            - name: RENOVATE_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: homelab-secrets
+                  key: RENOVATE_GH_TOKEN
+          restartPolicy: never
+
+      volumes:
+        - name: renovate_conf
+          configMap:
+            name: renovate-configmap
