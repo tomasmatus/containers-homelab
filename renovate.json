@@ -1,12 +1,22 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:recommended"
+    "config:recommended",
+    ":timezone(Europe/Prague)"
   ],
+
+  "dependencyDashboardTitle": "Renovate Dashboard 🤖",
 
   "kubernetes": {
     "managerFilePatterns": [
       "/.*-kube\\.yaml$/"
     ]
-  }
+  },
+
+  "packageRules": [
+    {
+      "matchManagers": ["kubernetes"],
+      "labels": ["container-update"]
+    }
+  ]
 }
