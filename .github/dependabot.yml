@@ -1,6 +1,6 @@
 version: 2
 updates:
-  - package-ecosystem: "docker-compose"
+  - package-ecosystem: "docker"
     directories:
       - "/grafana"
       - "/jellyseerr"
