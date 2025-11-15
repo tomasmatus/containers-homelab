@@ -1,0 +1,12 @@
+[Unit]
+Description=Renovate container
+Requires=homelab-network.service
+After=homelab-network.service
+
+[Kube]
+Yaml=renovate-kube.yaml
+Network=homelab.network
+ConfigMap=renovate-config.js.yaml
+
+[Service]
+Type=oneshot

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: renovate-configmap
+data:
+  config.js: |
+    module.exports = {
+      platform: "github",
+      gitAuthor: "Renovate Bot Tom <renovate-bot@tomatus.cz>",
+      onboardingConfigFileName: "renovate.json",
+      repositories: [
+        "tomasmatus/containers-homelab",
+      ],
+    };

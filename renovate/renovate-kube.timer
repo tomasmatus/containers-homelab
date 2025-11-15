@@ -1,0 +1,11 @@
+[Unit]
+Description=Timer to periodically run Renovate
+Wants=network-online.target
+
+[Timer]
+OnCalendar=daily
+RandomizedDelaySec=60m
+Unit=renovate-kube.service
+
+[Install]
+WantedBy=timers.target
