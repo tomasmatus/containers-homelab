@@ -15,7 +15,7 @@ spec:
       containers:
         - name: caddy
           hostname: caddy
-          image: docker.io/library/caddy:2.8.4
+          image: docker.io/library/caddy:2.10.2
           restartPolicy: unless-stopped
           volumeMounts:
             - mountPath: /data
