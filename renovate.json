@@ -3,6 +3,8 @@
   "extends": [
     "config:recommended",
     ":disableRateLimiting",
+    ":dependencyDashboard",
+    ":semanticCommits",
     ":timezone(Europe/Prague)"
   ],
 
