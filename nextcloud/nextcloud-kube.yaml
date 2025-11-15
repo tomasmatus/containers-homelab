@@ -54,7 +54,7 @@ spec:
 
         # Nextcloud
         - name: nextcloud
-          image: docker.io/library/nextcloud:31.0.8-apache
+          image: docker.io/library/nextcloud:31.0.10-apache
           args:
             - apache2-foreground
           env:
