@@ -12,7 +12,7 @@ spec:
   template:
     metadata:
     spec:
-      containers:
+      initContainers:
         - name: renovate
           hostname: renovate
           image: ghcr.io/renovatebot/renovate:42.11.0
