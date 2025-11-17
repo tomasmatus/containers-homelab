@@ -68,9 +68,11 @@ spec:
                 secretKeyRef:
                   name: homelab-secrets
                   key: GF_SECURITY_ADMIN_PASSWORD
+          # yamllint disable rule:comments-indentation
           # ports:
           #   - containerPort: 3000
           #     hostPort: 30000
+          # yamllint enable rule:comments-indentation
 
       volumes:
         - name: loki_data
