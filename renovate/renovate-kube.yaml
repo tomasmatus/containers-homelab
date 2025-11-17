@@ -15,7 +15,7 @@ spec:
       initContainers:
         - name: renovate
           hostname: renovate
-          image: ghcr.io/renovatebot/renovate:42.11.0
+          image: ghcr.io/renovatebot/renovate:42.13.3
           volumeMounts:
             - mountPath: /usr/src/app
               name: renovate_conf
