@@ -15,7 +15,7 @@ spec:
       containers:
         - name: lidarr
           hostname: lidarr
-          image: ghcr.io/home-operations/lidarr:3.0.1
+          image: ghcr.io/home-operations/lidarr:3.1.1
           restartPolicy: unless-stopped
           volumeMounts:
             - name: lidarr_data
