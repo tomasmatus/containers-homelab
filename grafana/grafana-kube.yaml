@@ -46,7 +46,7 @@ spec:
 
         - name: grafana
           hostname: grafana
-          image: docker.io/grafana/grafana:12.3.0
+          image: docker.io/grafana/grafana:12.3.1
           restartPolicy: unless-stopped
           volumeMounts:
             - name: grafana_data
