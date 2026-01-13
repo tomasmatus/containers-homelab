@@ -12,17 +12,6 @@ spec:
   template:
     metadata:
     spec:
-      initContainers:
-        - name: loki-init
-          image: docker.io/grafana/loki:3.6.3
-          command: ["chown", "10001:10001", "/loki"]
-          securityContext:
-            runAsUser: 0
-            runAsGroup: 0
-          volumeMounts:
-            - name: loki_data
-              mountPath: /loki
-
       containers:
         - name: loki
           hostname: loki
