@@ -42,7 +42,7 @@ spec:
 
         - name: valkey
           hostname: valkey
-          image: docker.io/valkey/valkey:8.1.5-alpine
+          image: docker.io/valkey/valkey:9.0.2-alpine
           args:
             - valkey-server
             - /etc/valkey/valkey.conf
