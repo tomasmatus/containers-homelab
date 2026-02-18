@@ -15,7 +15,7 @@ spec:
       containers:
         - name: loki
           hostname: loki
-          image: docker.io/grafana/loki:3.6.3
+          image: docker.io/grafana/loki:3.6.6
           restartPolicy: unless-stopped
           volumeMounts:
             - name: loki_data
