@@ -33,7 +33,7 @@ data:
             period: 24h
 
     limits_config:
-      retention_period: 336h
+      retention_period: 1488h
       deletion_mode: "filter-and-delete"
 
     compactor:
