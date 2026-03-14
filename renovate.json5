@@ -20,6 +20,20 @@
     {
       matchManagers: ["kubernetes"],
       labels: ["container-update"]
-    }
+    },
+
+    // Specify changelog URL as some projects don't have it automagically
+    {
+      matchPackageNames: ["/nextcloud/"],
+      changelogUrl: "https://nextcloud.com/changelog/",
+    },
+    {
+      matchPackageNames: ["/flood/"],
+      changelogUrl: "https://github.com/jesec/flood/releases",
+    },
+    {
+      matchPackageNames: ["loki"],
+      changelogUrl: "https://grafana.com/docs/loki/latest/release-notes/",
+    },
   ]
 }
