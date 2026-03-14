@@ -1,6 +1,6 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  extends: [
     "config:recommended",
     ":disableRateLimiting",
     ":dependencyDashboard",
@@ -8,18 +8,18 @@
     ":timezone(Europe/Prague)"
   ],
 
-  "dependencyDashboardTitle": "Renovate Dashboard 🤖",
+  dependencyDashboardTitle: "Renovate Dashboard 🤖",
 
-  "kubernetes": {
-    "managerFilePatterns": [
+  kubernetes: {
+    managerFilePatterns: [
       "/.*-kube\\.yaml$/"
     ]
   },
 
-  "packageRules": [
+  packageRules: [
     {
-      "matchManagers": ["kubernetes"],
-      "labels": ["container-update"]
+      matchManagers: ["kubernetes"],
+      labels: ["container-update"]
     }
   ]
 }
