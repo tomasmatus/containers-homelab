@@ -19,7 +19,14 @@
   packageRules: [
     {
       matchManagers: ["kubernetes"],
-      labels: ["container-update"]
+      labels: ["container-update"],
+      // Set major version increment to 1 globally
+      maxMajorIncrement: 1,
+    },
+    {
+      // Allow bigger major version incements for these packages
+      matchPackageNames: ["/renovate/"],
+      maxMajorIncrement: 500,
     },
 
     // Specify changelog URL as some projects don't have it automagically
