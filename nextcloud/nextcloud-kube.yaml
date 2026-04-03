@@ -16,7 +16,7 @@ spec:
         # MariaDB
         - name: mariadb
           hostname: mariadb
-          image: docker.io/library/mariadb:11.8.4
+          image: docker.io/library/mariadb:11.8.6
           env:
             - name: MYSQL_DATABASE
               value: nextcloud
