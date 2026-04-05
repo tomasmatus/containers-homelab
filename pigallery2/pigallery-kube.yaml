@@ -15,7 +15,7 @@ spec:
       containers:
         - name: pigallery
           hostname: pigallery
-          image: docker.io/bpatrik/pigallery2:2.0.0
+          image: docker.io/bpatrik/pigallery2:3.5.2
           env:
             - name: NODE_ENV
               value: production
