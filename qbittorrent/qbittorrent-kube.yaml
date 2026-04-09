@@ -30,7 +30,7 @@ spec:
 
         - name: flood
           hostname: flood
-          image: docker.io/jesec/flood:4.13.0
+          image: docker.io/jesec/flood:4.13.9
           restartPolicy: unless-stopped
           volumeMounts:
             - name: flood_data
