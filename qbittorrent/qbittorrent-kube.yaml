@@ -15,7 +15,7 @@ spec:
       containers:
         - name: qbittorrent
           hostname: qbittorrent
-          image: ghcr.io/home-operations/qbittorrent:5.1.4
+          image: ghcr.io/home-operations/qbittorrent:5.2.3
           restartPolicy: unless-stopped
           volumeMounts:
             - name: qbittorrent_data
