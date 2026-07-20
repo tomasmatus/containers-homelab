@@ -1,0 +1,8 @@
+[Unit]
+Description=Pronajem bot container
+
+[Install]
+WantedBy=default.target
+
+[Kube]
+Yaml=pronajem-bot-kube.yaml
