@@ -1,0 +1,59 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pronajem-bot
+  labels:
+    app: pronajem-bot
+spec:
+  selector:
+    matchLabels:
+      app: pronajem-bot-pod
+  template:
+    metadata:
+    spec:
+      containers:
+        - name: pronajem-bot
+          hostname: pronajem-bot
+          image: docker.io/janch32/web-scraper-nabidek-pronajmu:latest
+          env:
+            - name: DISCORD_OFFERS_CHANNEL
+              valueFrom:
+                secretKeyRef:
+                  name: homelab-secrets
+                  key: DISCORD_OFFERS_CHANNEL
+            - name: DISCORD_DEV_CHANNEL
+              valueFrom:
+                secretKeyRef:
+                  name: homelab-secrets
+                  key: DISCORD_DEV_CHANNEL
+            - name: DISCORD_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: homelab-secrets
+                  key: DISCORD_TOKEN
+            - name: DISPOSITIONS
+              value: 2+1,3+kk,1+1,1+kk
+            - name: FOUND_OFFERS_FILE
+              value: /data
+          restartPolicy: unless-stopped
+          volumeMounts:
+            - mountPath: /data
+              name: najem_data
+
+      volumes:
+        - name: najem_data
+          persistentVolumeClaim:
+            claimName: najem-bot-data
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: najem-bot-data
+spec:
+  storageClassName: manual
+  accessMode:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
