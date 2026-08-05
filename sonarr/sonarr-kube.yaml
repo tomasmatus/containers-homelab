@@ -15,7 +15,7 @@ spec:
       containers:
         - name: sonarr
           hostname: sonarr
-          image: ghcr.io/home-operations/sonarr:4.0.18
+          image: ghcr.io/home-operations/sonarr:4.0.19
           restartPolicy: unless-stopped
           volumeMounts:
             - name: sonarr_data
