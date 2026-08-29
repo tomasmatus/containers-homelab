@@ -53,6 +53,19 @@ spec:
             - mountPath: /etc/valkey
               name: valkey_conf
 
+        # Imaginary
+        - name: imaginary
+          hostname: imaginary
+          image: ghcr.io/nextcloud-releases/aio-imaginary:20260825_084538
+          env:
+            - name: PORT
+              value: 9000
+          args:
+            - -concurency
+            - "50"
+            - -enable-url-source
+          restartPolicy: unless-stopped
+
         # Nextcloud
         - name: nextcloud
           image: docker.io/library/nextcloud:31.0.14-apache
