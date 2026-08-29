@@ -112,7 +112,8 @@ spec:
         - name: nextcloud_data
           # actual files stored by users
           hostPath:
-            path: /home/admintom/podman/nextcloud_data
+            # FIXME: temporary path for local debugging
+            path: /home/tom/podman/nextcloud_data
             type: DirectoryOrCreate
         - name: mariadb_data
           persistentVolumeClaim:
