@@ -1,0 +1,25 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nextcloud-custom-config
+data:
+  custom.config.conf: |
+    <?php
+    $CONFIG = array (
+      'enabledPreviewProviders' =>
+        array (
+          0 => 'OC\\Preview\\Imaginary',
+          1 => 'OC\\Preview\\OpenDocument',
+          2 => 'OC\\Preview\\ImaginaryPDF',
+          3 => 'OC\\Preview\\MSOfficeDoc',
+          4 => 'OC\\Preview\\MarkDown',
+          5 => 'OC\\Preview\\MP3',
+          6 => 'OC\\Preview\\MP4',
+          7 => 'OC\\Preview\\AVI',
+          8 => 'OC\\Preview\\Movie',
+          9 => 'OC\\Preview\\MKV',
+          10 => 'OC\\Preview\\XCF',
+        ),
+      'preview_imaginary_url' => 'http://imaginary:9000',
+    );

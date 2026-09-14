@@ -117,6 +117,10 @@ spec:
               name: nextcloud_appdata
             - mountPath: /var/www/html/data
               name: nextcloud_data
+            # Custom nextcloud config
+            - mountPath: /var/www/html/config/custom.config.conf
+              subPath: custom.config.conf
+              name: nextcloud_custom_config
 
       volumes:
         - name: nextcloud_appdata

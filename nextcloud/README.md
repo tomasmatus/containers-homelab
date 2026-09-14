@@ -1,3 +1,9 @@
+# Nextcloud custom config
+
+- https://docs.nextcloud.com/server/stable/admin_manual/configuration_server/config_sample_php_parameters.html#introduction
+
+This can be used instead of the `occ` command to configure some nextcloud options.
+
 # Configure nextcloud to use imaginary for image previews
 
 - https://help.nextcloud.com/t/how-to-generate-image-previews-in-nextcloud-with-imaginary-with-docker/228822
