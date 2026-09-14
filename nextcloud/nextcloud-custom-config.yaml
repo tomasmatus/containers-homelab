@@ -1,0 +1,31 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nextcloud-custom-config
+data:
+  custom.config.conf: |
+    <?php
+    // Reference:
+    // https://docs.nextcloud.com/server/stable/admin_manual/configuration_server/config_sample_php_parameters.html
+    $CONFIG = [
+      'enabledPreviewProviders' => [
+        'OC\\Preview\\Imaginary',
+        'OC\\Preview\\OpenDocument',
+        'OC\\Preview\\ImaginaryPDF',
+        'OC\\Preview\\MSOfficeDoc',
+        'OC\\Preview\\MarkDown',
+        'OC\\Preview\\TXT',
+        'OC\\Preview\\WebP',
+        'OC\\Preview\\MP3',
+        'OC\\Preview\\MP4',
+        'OC\\Preview\\AVI',
+        'OC\\Preview\\Movie',
+        'OC\\Preview\\MKV',
+        'OC\\Preview\\XCF',
+      ],
+      'preview_imaginary_url' => 'http://imaginary:9000',
+      'trashbin_retention_obligation' => 'auto,30',
+      'versions_retention_obligation' => 'auto,30',
+      'defaultapp' => 'dashboard,files,memories,activity,contacts,calendar,notes,tasks',
+    ];
