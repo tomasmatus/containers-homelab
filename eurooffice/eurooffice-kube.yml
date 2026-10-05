@@ -1,0 +1,90 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eurooffice
+  labels:
+    app: eurooffice
+spec:
+  selector:
+    matchLabels:
+      app: eurooffice-pod
+  template:
+    metadata:
+    spec:
+      containers:
+        # EuroOffice
+        - name: eurooffice
+          hostname: eurooffice
+          image: ghcr.io/euro-office/documentserver:latest
+          env:
+            - name: JWT_ENABLED
+              value: true
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: homelab-secrets
+                  key: EURO_OFFICE_JWT_SECRET
+            # TODO: add DB_PWD env var
+            # Check env vars for redis too, maybe share it with NC
+          restartPolicy: unless-stopped
+          volumeMounts:
+            - mountPath: /var/lib/euro-office/documentserver
+              name: eurooffice_data
+              # Contains container state
+            - mountPath: /var/www/euro-office/Data
+              name: eurooffice_private
+            - mountPath: /var/log/euro-office/documentserver
+              name: eurooffice_logs
+            - mountPath: /etc/euro-office/documentserver
+              name: eurooffice_config
+
+      volumes:
+        - name: eurooffice_data
+          persistentVolumeClaim:
+            claimName: eurooffice-data
+        - name: eurooffice_private
+          persistentVolumeClaim:
+            claimName: eurooffice-private
+        - name: eurooffice_logs
+          persistentVolumeClaim:
+            claimName: eurooffice-logs
+        - name: eurooffice_config
+          persistentVolumeClaim:
+            claimName: eurooffice-config
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: eurooffice-data
+spec:
+  storageClassName: manual
+  accessMode:
+    - ReadWriteOnce
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: eurooffice-private
+spec:
+  storageClassName: manual
+  accessMode:
+    - ReadWriteOnce
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: eurooffice-logs
+spec:
+  storageClassName: manual
+  accessMode:
+    - ReadWriteOnce
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: eurooffice-config
+spec:
+  storageClassName: manual
+  accessMode:
+    - ReadWriteOnce
