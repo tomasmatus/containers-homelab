@@ -4,6 +4,9 @@
 
 This can be used instead of the `occ` command to configure some nextcloud options.
 
+Custom config is applied only after first installation, for container to be able to access
+the bind mounted volume you first need to `chcon -t container_file_t -R <directory>` because selinux.
+
 # Configure nextcloud to use imaginary for image previews
 
 - https://help.nextcloud.com/t/how-to-generate-image-previews-in-nextcloud-with-imaginary-with-docker/228822

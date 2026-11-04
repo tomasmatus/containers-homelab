@@ -117,6 +117,8 @@ spec:
               name: nextcloud_appdata
             - mountPath: /var/www/html/data
               name: nextcloud_data
+            - mountPath: /docker-entrypoint-hooks.d/post-installation
+              name: nextcloud_hooks_post_installation
           ports:
             # FIXME: temporary exposed port
             - containerPort: 80
@@ -132,6 +134,10 @@ spec:
           hostPath:
             # FIXME: temporary path for local debugging
             path: /home/tom/podman/nextcloud_data
+            type: DirectoryOrCreate
+        - name: nextcloud_hooks_post_installation
+          hostPath:
+            path: ./nextcloud-hooks/post-installation/
             type: DirectoryOrCreate
         - name: mariadb_data
           persistentVolumeClaim:
